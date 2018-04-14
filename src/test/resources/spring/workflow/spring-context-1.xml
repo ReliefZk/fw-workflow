@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:fw-workflow="http://www.reliefzk.com/schema/fw-workflow"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.reliefzk.com/schema/fw-workflow http://www.reliefzk.com/schema/fw-workflow.xsd
+    "
+>
+
+    <fw-workflow:workflow id="testWorkflow">
+        <fw-workflow:gateway from="start" to="check" conditionExpr="${1=1}" springExprBean="checkExpr" postListener="listener1"/>
+        <fw-workflow:gateway from="check" to="confirm" conditionExpr="${2=2}" springExprBean="checkExpr" preListener="listener2"/>
+    </fw-workflow:workflow>
+
+</beans>

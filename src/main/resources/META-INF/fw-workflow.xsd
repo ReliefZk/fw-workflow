@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            xmlns="http://www.reliefzk.com/schema/fw-workflow"
+            targetNamespace="http://www.reliefzk.com/schema/fw-workflow"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+
+    <xsd:element name="workflow">
+
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ 工作流xsd定义 ]]></xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="beans:identifiedType">
+                    <xsd:group ref="workflowElements"/>
+                    <xsd:attributeGroup ref="workflowAttributes"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+
+    </xsd:element>
+
+    <xsd:group name="workflowElements">
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element ref="gateway"/>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:group>
+
+
+    <xsd:attributeGroup name="workflowAttributes">
+
+    </xsd:attributeGroup>
+
+
+    <xsd:element name="gateway">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ 定义节点 ]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:attribute name="from" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 工作流起点 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="to" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 工作流可能的下一站点 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="conditionExpr" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ Aviator expression, learn: https://github.com/killme2008/aviator/wiki ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="springExprBean" type="xsd:string" >
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ spring expression java实现调用句柄 实现com.alipay.fc.amlmatrix.workflow.core.WorkflowExprBean  ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="preListener" type="xsd:string" >
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 工作流执行前置监听器 java实现调用句柄 实现com.alipay.fc.amlmatrix.workflow.core.definations.WorkflowListener  ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="postListener" type="xsd:string" >
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 工作流执行后置监听器 java实现调用句柄 实现com.alipay.fc.amlmatrix.workflow.core.definations.WorkflowListener  ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+
+</xsd:schema>
